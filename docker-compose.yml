@@ -11,8 +11,6 @@ services:
       - "7860:7860"
     volumes:
       - ./data:/app/data
-    env_file:
-      - .env
     restart: unless-stopped
     # 健康检查
     healthcheck:
