@@ -626,6 +626,13 @@ if os.path.exists(os.path.join("static", "assets")):
     app.mount("/assets", StaticFiles(directory=os.path.join("static", "assets")), name="assets")
 if os.path.exists(os.path.join("static", "vendor")):
     app.mount("/vendor", StaticFiles(directory=os.path.join("static", "vendor")), name="vendor")
+try:
+    from core.mcp_server import get_mcp_http_app
+
+    app.mount("/mcp", get_mcp_http_app(), name="mcp")
+    logger.info("[SYSTEM] MCP endpoint mounted at /mcp")
+except Exception as e:
+    logger.warning("[SYSTEM] MCP endpoint disabled: %s", e)
 
 @app.get("/")
 async def serve_frontend_index():

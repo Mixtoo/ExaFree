@@ -20,6 +20,7 @@
 ## 核心功能
 
 - Exa API 代理：`/search`、`/answer`、`/contents`、`/findSimilar`、`/research/v1`
+- MCP 工具入口：`/mcp`（HTTP）
 - 多账号轮询与失败切换
 - 管理面板（账号、用户、策略、日志、监控、系统设置）
 - 用户系统（会话登录、用户 API Key、角色/限流）
@@ -63,6 +64,23 @@ curl http://localhost:7860/search \
   -H "Content-Type: application/json" \
   -d '{"query":"latest linux do news","numResults":3}'
 ```
+
+---
+
+## MCP 工具（HTTP）
+
+项目内置 MCP 服务，入口为：`/mcp`。  
+可通过 MCP 客户端调用工具（search、contents、findSimilar、answer、research）。
+
+**环境变量**
+
+- `EXA_POOL_BASE_URL`：上游 Exa Pool 地址（默认 `http://127.0.0.1:7860`）
+- `EXA_POOL_API_KEY`：用于访问上游 Exa Pool 的 API Key（必填）
+
+说明：
+
+- 若未配置 `EXA_POOL_BASE_URL`，会默认指向本服务。
+- 若未配置 `EXA_POOL_API_KEY`，MCP 请求将直接返回错误提示。
 
 ---
 
